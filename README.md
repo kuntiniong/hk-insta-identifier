@@ -1,27 +1,22 @@
-# Hong Kong Instagram Username Identification
+# Hong Kong Instagram username identifier with Cantonese linguistics
 
-A NLP pipeline that identifies Hong Kong Instagram users solely based on username patterns.
+NLP pipeline that identifies Hong Kong Instagram users solely based on Romanized Cantonese phonetic patterns in usernames.
 
-## 📚 Content
-- [About](#🌱-about)
-- [How Does It Work?](#🚀-how-does-it-work)
-- [Why Syllables?](#👀-why-syllables)
-- [Results](#✅-results)
-- [Limitations](#⚠️-limitations)
-- [Thank You](#❤️-thank-you)
+> *disclaimer: i have no formal training in linguistics except i took a computational linguistcs course in my sophomore year; however, this project was created during my **freshman year** as an experimental project for my personal interest in linguistics and machine learning.*
 
-## 🌱 About
-This binary classification project identifies Hong Kong Instagram users **without relying on real-time scraping or API calls** on the users' **metadata**. Instead, my model uses the underlying **syllable patterns** in usernames for the classification task.
+## About
 
-An example use case for my identifier can be creating a **lightweight IG ad bot** that exclusively engages with Hong Kong IG users for social media marketing purposes.
+This binary classification project aims to identify Hong Kong Instagram users **without relying on real-time users' metadata from Meta**. I created this end-to-end pipeline that collects raw username data, and then separates the **syllable-based** phoentic pattern from usernames as features. The main objective here is to examine whether only usernames are sufficient enough for ML models to identify Hong Kong users.
 
-Scikit-learn's **Logistic Regression**, **Random Forest** and **SVM** are chosen as the baseline models for evaluation.
+An example use case for it could be creating a **lightweight ad bot** that exclusively engages with Hong Kong IG users for social media marketing purposes. (just an example, this violates Meta's policy so don't do this)
 
-The [training data](datasets) is collected from [hypeauditor.com](https://hypeauditor.com/) using a [Selenium-based web scraper](hypeauditor_scraper.py).
+Since usernames are not complex and the goal is creating a lightweight bot, simpler traditional models like **Logistic Regression**, **Random Forest** & **SVM** are used for evaluation.
+
+[Training data](datasets) is collected from [hypeauditor.com](https://hypeauditor.com/) using [hypeauditor_scraper.py](hypeauditor_scraper.py) with Selenium.
 
 > *try HK-Insta-Identifier yourself on my [streamlit app](https://hk-insta-identifier.streamlit.app/)!*
 
-## 🚀 How Does It Work?
+## How Does It Work?
 
 The core principle of this classification task revolves around **Romanized Cantonese linguistic features** and the behavior of **NLTK syllable tokenizer**.       
 
@@ -58,7 +53,7 @@ The following are the visualizations of the ***distribution of repeated and uniq
 
 All these differences contributed as the **patterns** for the models to identify HK usernames from non-HK usernames.
 
-## 👀 Why Syllables?
+## Why Syllables?
 
 In NLP, conventional tokens might be **words, phrases, or subword units**. On the contrary, syllabic tokenization is regarded as a rather "**inconsistent**" tokenization technique since the phonetics in the English language is also inconsistent in some extent, such as the "k" in "knife" or "olo" in "colonel". 
 
@@ -78,15 +73,15 @@ However, I found that syllabic tokenization could still be the **most suitable e
 
 > *learn more in [Forbidden Spellings](https://www.youtube.com/shorts/3ipFdRfFvK4) & [NLP pipeline deep dive: Why doesn't anyone tokenize by syllables?](https://www.youtube.com/watch?v=4_KxnoMnVVs&t=2990s&ab_channel=RachaelTatman)*
 
-## ✅ Results
+## Results
 
 <img src="images/confusion_matrix.png">
 
 After running a GridSearchCV, it was found that both **Logistic Regression (LR)** and **Support Vector Machines (SVM)** yielded the best testing results with **0.742**. On the other hand, Random Forest (RF) with 0.691  showed the worst performance due to potential underfitting.
 
-> *please consider checking out [hk_ig_clf.ipynb](hk_ig_clf.ipynb) or [hk_ig_clf.pdf](hk_ig_clf.pdf) for full details.*
+> *check out [hk_ig_clf.ipynb](hk_ig_clf.ipynb) or [hk_ig_clf.pdf](hk_ig_clf.pdf) for full results*
 
-## ⚠️ Limitations 
+## Limitations & Conclusion 
 
 Username analysis is a *super super* complicated topic because of the freedom and creativity users have when choosing their usernames, for example:  
 
@@ -94,14 +89,5 @@ Username analysis is a *super super* complicated topic because of the freedom an
 - **English names** are widely adopted by many Hong Kong users and greatly reduce the visibility of linguistic patterns tied to Cantonese
 - There is often **overlap among Romanized Chinese dialects**, making it difficult to distinguish between users from different regions  
 
-So while my approach might seem effective enough(? ), you have to carefully consider these factors when interpreting the results of this project.
-
-## ❤️ Thank You 
-If you find this project interesting, feel free to **star**🌟or **fork** this repo and explore new ideas to build on this work - collaboration is always welcome! 
-
-Possible future directions could include developing a Romanized Cantonese-specific tokenizer and incorporating users' bios information.
-
-Thank you again for taking the time to learn about this project!
-
-> *back to [top](#hong-kong-instagram-username-identification)*
+So while my approach might seem effective enough(? ), just keep in mind these factors should also be considered when interpreting the results.
 
